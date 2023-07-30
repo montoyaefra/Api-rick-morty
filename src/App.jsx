@@ -7,6 +7,7 @@ import Cards from "./components/Cards";
 function App() {
   const [filteredData, setFilteredData] = useState([]);
   const [data, setData] = useState([]);
+  const [filterText, setFilterText] = useState('');
   const isMountedRef = useRef(false);
 
   useEffect(() => {
@@ -58,11 +59,15 @@ function App() {
     setFilteredData(filteredCharacters);
   };
 
+  const handleFilterInputChange = (value) => {
+    setFilterText(value); // Actualiza el estado con el valor del input
+  };
+
   return (
     <>
-      <Header />
+      <Header onFilterInputChange={handleFilterInputChange} />
       <Aside onFilterChange={handleFilterChange} />
-      <Cards data={filteredData} />
+      <Cards data={filteredData} filterText={filterText} />
     </>
   );
 }
